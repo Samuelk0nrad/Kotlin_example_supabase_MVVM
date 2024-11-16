@@ -29,24 +29,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import io.github.jan.supabase.postgrest.from
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.withContext
-import org.example.project.Country
-import org.example.project.insertData
-import org.example.project.supabase
+import org.example.project.utils.Country
 
 
 @Composable
-fun DataPage(){
-
-    val openAlertDialog = remember { mutableStateOf(false) }
+fun DataPage(
+    dataViewModel: DataViewModel
+){
+    LaunchedEffect(Unit) {
+        dataViewModel.getCountries()
+    }
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    openAlertDialog.value = true
+                    dataViewModel.openAddCountryPopUp()
                 }
             ) {
                 Icon(Icons.Filled.Add,"")
@@ -57,39 +54,42 @@ fun DataPage(){
             Surface(
                 modifier = Modifier.fillMaxSize()
             ) {
-                CountriesList(openAlertDialog.value, setOpenAlertDialog = {
-                    openAlertDialog.value = it
-                } )
+                CountriesList(dataViewModel.addCountryPopUpState,
+                    closeAddCountryPopUp = {
+                        dataViewModel.closeAddCountryPopUp()
+                    },
+                    countries = dataViewModel.countries,
+                    insertCountry = { country ->
+                        dataViewModel.insertData(country)
+                    }
+                )
+
             }
         }
     }
 }
 
 @Composable
-fun CountriesList(openAlertDialog: Boolean, setOpenAlertDialog: (Boolean) -> Unit) {
-    var countries by remember { mutableStateOf<List<Country>>(listOf()) }
-    LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) {
-            countries = supabase.from("countries")
-                .select().decodeList<Country>()
-        }
-    }
+fun CountriesList(
+    openAlertDialog: Boolean,
+    closeAddCountryPopUp: () -> Unit,
+    countries: List<Country>,
+    insertCountry: (Country) -> Unit
+) {
     Column {
         for (country in countries) {
             Text("Country: ${country.name}")
         }
     }
 
-    // ...
     when {
-        // ...
         openAlertDialog -> {
             MinimalDialog(onDismissRequest = {
-                setOpenAlertDialog(false)
+                closeAddCountryPopUp()
             },
                 onOk = { country ->
-                    setOpenAlertDialog(false)
-                    insertData(Country(name = country))
+                    closeAddCountryPopUp()
+                    insertCountry(Country(name = country))
                 }
             )
         }

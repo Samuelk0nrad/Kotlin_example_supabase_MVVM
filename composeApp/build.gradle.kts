@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -37,6 +36,10 @@ kotlin {
 
             //Ktor
             implementation(libs.ktor.client.okhttp)
+
+            //Koin
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -61,13 +64,20 @@ kotlin {
             implementation(libs.navigation.compose)
 
             //Koin
-            implementation(libs.koin.android)
-            implementation(libs.koin.androidx.viewmodel)
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+
+            implementation(libs.lifecycle.viewmodel)
+
+            //
+            implementation(libs.multiplatform.settings)
 
         }
         iosMain.dependencies {
             //Ktor
             implementation(libs.ktor.client.darwin)
+            implementation("com.russhwolf:multiplatform-settings:1.2.0")
         }
     }
 }
