@@ -11,8 +11,8 @@ import androidx.navigation.compose.rememberNavController
 import io.github.jan.supabase.auth.status.SessionStatus
 import org.example.project.authentication.Authentication
 import org.example.project.authentication.AuthenticationViewModel
-import org.example.project.pages.Data.DataPage
-import org.example.project.pages.Data.DataViewModel
+import org.example.project.pages.data.DataPage
+import org.example.project.pages.data.DataViewModel
 import org.example.project.utils.Screen
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext

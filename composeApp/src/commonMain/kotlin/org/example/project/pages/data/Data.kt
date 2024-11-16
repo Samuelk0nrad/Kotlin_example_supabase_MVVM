@@ -1,4 +1,4 @@
-package org.example.project.pages.Data
+package org.example.project.pages.data
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

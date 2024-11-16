@@ -8,12 +8,9 @@ import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth
 import io.github.jan.supabase.auth.providers.builtin.Email
 import kotlinx.coroutines.launch
-import org.example.project.authentication.data.SessionManager
-import org.example.project.printLog
 
 class AuthenticationViewModel (
-    private val supabaseClient: SupabaseClient,
-    private val sessionManager: SessionManager
+    private val supabaseClient: SupabaseClient
 ) : ViewModel() {
     private val _email = mutableStateOf("")
     val email: State<String> = _email
@@ -38,7 +35,6 @@ class AuthenticationViewModel (
                     email = _email.value
                     password = _password.value
                 }
-                saveSession()
                 callback(true, null)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -55,18 +51,11 @@ class AuthenticationViewModel (
                     email = _email.value
                     password = _password.value
                 }
-                saveSession()
                 callback(true, null)
             } catch (e: Exception) {
                 e.printStackTrace()
                 callback(false, e.message)
             }
-        }
-    }
-
-    private fun saveSession(){
-        supabaseClient.auth.currentSessionOrNull()?.let {
-            sessionManager.saveSession(it)
         }
     }
 }

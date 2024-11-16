@@ -1,4 +1,4 @@
-package org.example.project.pages.Data
+package org.example.project.pages.data
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -28,16 +28,25 @@ class DataViewModel(
 
     fun getCountries() {
         viewModelScope.launch {
-            val countriesList = supabaseClient.from("countries")
-                .select().decodeList<Country>()
-            _countries.clear()
-            _countries.addAll(countriesList)
+            try {
+                val countriesList = supabaseClient.from("countries")
+                    .select().decodeList<Country>()
+
+                _countries.clear()
+                _countries.addAll(countriesList)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
     fun insertData(country: Country) {
         viewModelScope.launch {
-            supabaseClient.from("countries").insert(country)
+            try {
+                supabaseClient.from("countries").insert(country)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }

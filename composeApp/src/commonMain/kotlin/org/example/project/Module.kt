@@ -2,14 +2,12 @@ package org.example.project
 
 import org.koin.compose.viewmodel.dsl.viewModelOf
 import org.example.project.authentication.AuthenticationViewModel
-import org.example.project.pages.Data.DataViewModel
+import org.example.project.pages.data.DataViewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
-import org.example.project.authentication.data.SessionManager
-import org.koin.dsl.bind
 
 expect val platformModule: Module
 
@@ -23,8 +21,6 @@ val sharedModule = module {
             install(Auth)
         }
     }
-
-    single { SessionManager(get()) }.bind(SessionManager::class)
 
     viewModelOf(::AppViewModel)
 
