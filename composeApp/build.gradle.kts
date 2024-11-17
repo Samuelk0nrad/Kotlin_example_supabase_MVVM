@@ -29,7 +29,6 @@ kotlin {
     }
     
     sourceSets {
-        
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
@@ -37,6 +36,9 @@ kotlin {
             //Koin
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+
+            //Ktor
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -55,6 +57,13 @@ kotlin {
 
             //Navigation
             implementation(libs.navigation.compose)
+
+            //Ktor
+            implementation(libs.ktor.client.core)
+        }
+        iosMain.dependencies {
+            //Ktor
+            implementation(libs.ktor.client.darwin)
         }
     }
 }
