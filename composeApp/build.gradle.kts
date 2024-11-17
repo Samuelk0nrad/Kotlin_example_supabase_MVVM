@@ -63,6 +63,12 @@ kotlin {
 
             //Shared Resources
             implementation(compose.components.resources)
+
+            //Supabase
+            implementation(project.dependencies.platform("io.github.jan-tennert.supabase:bom:3.0.1"))
+            implementation(libs.postgrest.kt)
+            implementation(libs.auth.kt)
+
         }
         iosMain.dependencies {
             //Ktor
