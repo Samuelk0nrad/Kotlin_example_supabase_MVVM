@@ -22,7 +22,7 @@ fun LogIn(
             TextField(value = authenticationViewModel.email.value, onValueChange = { authenticationViewModel.setEmail(it) })
             TextField(value = authenticationViewModel.password.value, onValueChange = { authenticationViewModel.setPassword(it) })
 
-            Button(onClick = { successfullyLogIn() }) {
+            Button(onClick = { authenticationViewModel.LogIn{successfullyLogIn,_ -> if(successfullyLogIn) successfullyLogIn()} }) {
                 Text("Log In")
             }
         }

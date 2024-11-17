@@ -21,7 +21,7 @@ fun SignUp(
             TextField(value = authenticationViewModel.email.value, onValueChange = { authenticationViewModel.setEmail(it) })
             TextField(value = authenticationViewModel.password.value, onValueChange = { authenticationViewModel.setPassword(it) })
 
-            Button(onClick = { successfullySignUp() }) {
+            Button(onClick = { authenticationViewModel.SignUp{successfullySignUp,_ -> if(successfullySignUp) successfullySignUp()} }) {
                 Text("Sign Up")
             }
         }
