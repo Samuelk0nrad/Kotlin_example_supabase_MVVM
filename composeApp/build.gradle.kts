@@ -60,6 +60,9 @@ kotlin {
 
             //Ktor
             implementation(libs.ktor.client.core)
+
+            //Shared Resources
+            implementation(compose.components.resources)
         }
         iosMain.dependencies {
             //Ktor
