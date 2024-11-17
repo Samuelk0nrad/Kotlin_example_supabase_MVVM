@@ -11,3 +11,5 @@ fun App() {
         Navigation()
     }
 }
+
+expect fun printLog(tag: String, message: String)
