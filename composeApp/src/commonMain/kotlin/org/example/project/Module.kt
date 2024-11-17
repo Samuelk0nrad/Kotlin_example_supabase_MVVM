@@ -3,8 +3,10 @@ package org.example.project
 import io.github.jan.supabase.auth.Auth
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
+import org.koin.compose.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import org.example.project.authentication.AuthenticationViewModel
 
 expect val platformModule: Module
 
@@ -18,4 +20,8 @@ val sharedModule = module {
             install(Auth)
         }
     }
+
+    viewModelOf(::AppViewModel)
+
+    viewModelOf(::AuthenticationViewModel)
 }

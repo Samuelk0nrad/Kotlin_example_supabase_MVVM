@@ -13,7 +13,8 @@ import org.example.project.utils.Screens
 
 @Composable
 fun Authentication(
-    navController: NavHostController
+    navController: NavHostController,
+    authenticationViewModel: AuthenticationViewModel
 ) {
 
     val authenticationNavController = rememberNavController()
@@ -27,18 +28,17 @@ fun Authentication(
 
         composable(AuthenticationScreens.LogIn.title) {
 
-            LogIn{
+            LogIn(authenticationViewModel){
                 navController.navigate(Screens.Page2.title)
             }
 
         }
 
         composable(AuthenticationScreens.SignUp.title) {
-            SignUp {
+            SignUp(authenticationViewModel) {
                 navController.navigate(Screens.Page2.title)
             }
         }
 
     }
-
 }
